@@ -60,6 +60,25 @@
       .footer { padding-left: 22px !important; }
       .nav-sec { display: none !important; }
       .nav-row { padding-top: 34px !important; padding-bottom: 18px !important; }
+      .hero-phone { min-height: auto !important; margin-top: 18px !important; }
+      .sec-title { font-size: 30px !important; }
+      .gallery-sec { padding: 40px 0 60px !important; }
+      .gallery { padding-left: 22px !important; padding-right: 22px !important; -webkit-overflow-scrolling: touch; }
+    }
+
+    /* Portrait téléphone : timeline en une colonne, carte histoire empilée */
+    @media (max-width: 640px) {
+      .h1 { font-size: 36px !important; }
+      .timeline-line { left: 21px !important; }
+      .palier { grid-template-columns: 42px 1fr !important; column-gap: 14px !important; align-items: start !important; margin-bottom: 26px !important; }
+      .palier-empty { display: none !important; }
+      .palier-dot { order: 0 !important; padding-top: 4px; }
+      .palier-card { order: 1 !important; text-align: left !important; padding: 20px !important; }
+      .story-card { grid-template-columns: 1fr !important; gap: 20px !important; padding: 26px !important; text-align: center !important; }
+      .story-card > img { margin: 0 auto !important; width: 92px !important; height: 92px !important; }
+      .demo-grid { gap: 24px !important; justify-items: center !important; }
+      .demo-caps { min-height: 288px !important; text-align: center !important; width: 100%; }
+      .demo-caps h3 { font-size: 26px !important; }
     }
   </style>
 </head>
@@ -117,7 +136,7 @@
           </span>
         </div>
       </div>
-      <div style="position:relative; display:flex; justify-content:center; align-items:center; min-height:600px;">
+      <div class="hero-phone" style="position:relative; display:flex; justify-content:center; align-items:center; min-height:600px;">
         <div style="position:relative; z-index:2; width:270px; animation:floatY 7s ease-in-out infinite;">
           <div style="border-radius:46px; padding:10px; background:linear-gradient(160deg,#2b3c50,#0b1420); box-shadow:0 50px 100px rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.12);">
             <img src="assets/screens/dashboard.png" alt="Tableau de bord Mon Carnet de Plongée" style="width:100%; display:block; border-radius:37px;">
@@ -131,13 +150,13 @@
   <div class="pad-side" style="position:relative; padding:10px 56px 70px 90px;">
     <div class="reveal" style="text-align:center; margin:0 auto 40px;">
       <div style="font-family:'Space Mono',monospace; color:#9FE4F5; font-size:13px; letter-spacing:0.14em; margin-bottom:12px;">DÉMO · 30 SECONDES</div>
-      <h2 style="margin:0; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:40px; letter-spacing:-0.02em; color:#fff;">L'app en un coup d'œil.</h2>
+      <h2 class="sec-title" style="margin:0; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:40px; letter-spacing:-0.02em; color:#fff;">L'app en un coup d'œil.</h2>
     </div>
 
     <div id="demo" style="max-width:1000px; margin:0 auto;">
       <div class="demo-grid" style="display:grid; grid-template-columns:1fr auto; gap:56px; align-items:center;">
         <!-- captions stack -->
-        <div style="position:relative; min-height:210px;">
+        <div class="demo-caps" style="position:relative; min-height:210px;">
           <div data-cap style="position:absolute; inset:0; opacity:1; transition:opacity 0.5s ease;">
             <div style="font-family:'Space Mono',monospace; font-size:15px; color:#7DEBFF; margin-bottom:14px;">01 / 05</div>
             <h3 style="margin:0 0 12px; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:30px; line-height:1.05; color:#fff;">Ton tableau de bord gamifié</h3>
@@ -198,34 +217,34 @@
   <div id="paliers" class="pad-side" style="position:relative; padding:20px 70px 80px 90px;">
     <div class="reveal" style="text-align:center; margin:0 auto 50px;">
       <div style="font-family:'Space Mono',monospace; color:#9FE4F5; font-size:13px; letter-spacing:0.12em; margin-bottom:12px;">⌄ PROFIL DE PLONGÉE</div>
-      <h2 style="margin:0; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:40px; letter-spacing:-0.02em; color:#fff;">Cinq paliers, tout ton carnet.</h2>
+      <h2 class="sec-title" style="margin:0; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:40px; letter-spacing:-0.02em; color:#fff;">Cinq paliers, tout ton carnet.</h2>
     </div>
 
     <div style="position:relative; max-width:980px; margin:0 auto;">
-      <div style="position:absolute; left:50%; top:0; bottom:0; width:0; border-left:2px dashed rgba(255,255,255,0.3); transform:translateX(-1px);"></div>
+      <div class="timeline-line" style="position:absolute; left:50%; top:0; bottom:0; width:0; border-left:2px dashed rgba(255,255,255,0.3); transform:translateX(-1px);"></div>
 
       <!-- palier 1 (left) −6m -->
-      <div class="reveal" style="position:relative; display:grid; grid-template-columns:1fr 90px 1fr; align-items:center; margin-bottom:38px;">
-        <div style="background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); border-radius:22px; padding:26px; backdrop-filter:blur(10px); text-align:right;">
+      <div class="reveal palier" style="position:relative; display:grid; grid-template-columns:1fr 90px 1fr; align-items:center; margin-bottom:38px;">
+        <div class="palier-card" style="background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); border-radius:22px; padding:26px; backdrop-filter:blur(10px); text-align:right;">
           <div style="font-size:30px; margin-bottom:10px;">📝</div>
           <h3 style="margin:0 0 8px; font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:21px; color:#fff;">Une plongée en 30 secondes</h3>
           <p style="margin:0; font-size:14px; line-height:1.6; color:rgba(255,255,255,0.7);">Date, lieu, profondeur, paliers, encadrant. Photo du tampon du moniteur et sa signature, comme sur le papier.</p>
         </div>
-        <div style="display:flex; flex-direction:column; align-items:center;">
+        <div class="palier-dot" style="display:flex; flex-direction:column; align-items:center;">
           <div style="width:18px; height:18px; border-radius:50%; background:#FFCf9e; box-shadow:0 0 0 6px rgba(255,207,158,0.22);"></div>
           <span style="font-family:'Space Mono',monospace; font-size:13px; color:#FFCf9e; margin-top:8px;">−6 m</span>
         </div>
-        <div></div>
+        <div class="palier-empty"></div>
       </div>
 
       <!-- palier 2 (right) −15m -->
-      <div class="reveal" style="position:relative; display:grid; grid-template-columns:1fr 90px 1fr; align-items:center; margin-bottom:38px;">
-        <div></div>
-        <div style="display:flex; flex-direction:column; align-items:center;">
+      <div class="reveal palier" style="position:relative; display:grid; grid-template-columns:1fr 90px 1fr; align-items:center; margin-bottom:38px;">
+        <div class="palier-empty"></div>
+        <div class="palier-dot" style="display:flex; flex-direction:column; align-items:center;">
           <div style="width:18px; height:18px; border-radius:50%; background:#34D399; box-shadow:0 0 0 6px rgba(52,211,153,0.22);"></div>
           <span style="font-family:'Space Mono',monospace; font-size:13px; color:#7DECC0; margin-top:8px;">−15 m</span>
         </div>
-        <div style="background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); border-radius:22px; padding:26px; backdrop-filter:blur(10px);">
+        <div class="palier-card" style="background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); border-radius:22px; padding:26px; backdrop-filter:blur(10px);">
           <div style="font-size:30px; margin-bottom:10px;">📚</div>
           <h3 style="margin:0 0 8px; font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:21px; color:#fff;">Brevets & documents FFESSM</h3>
           <p style="margin:0; font-size:14px; line-height:1.6; color:rgba(255,255,255,0.7);">Licence, certificat médical, tous tes brevets au même endroit, avec alerte de validité du certificat.</p>
@@ -233,27 +252,27 @@
       </div>
 
       <!-- palier 3 (left) −25m -->
-      <div class="reveal" style="position:relative; display:grid; grid-template-columns:1fr 90px 1fr; align-items:center; margin-bottom:38px;">
-        <div style="background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); border-radius:22px; padding:26px; backdrop-filter:blur(10px); text-align:right;">
+      <div class="reveal palier" style="position:relative; display:grid; grid-template-columns:1fr 90px 1fr; align-items:center; margin-bottom:38px;">
+        <div class="palier-card" style="background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); border-radius:22px; padding:26px; backdrop-filter:blur(10px); text-align:right;">
           <div style="font-size:30px; margin-bottom:10px;">📡</div>
           <h3 style="margin:0 0 8px; font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:21px; color:#fff;">Import ordinateur en Bluetooth</h3>
           <p style="margin:0; font-size:14px; line-height:1.6; color:rgba(255,255,255,0.7);">Connecte ton ordinateur de plongée et récupère tes profils de profondeur sans rien ressaisir.</p>
         </div>
-        <div style="display:flex; flex-direction:column; align-items:center;">
+        <div class="palier-dot" style="display:flex; flex-direction:column; align-items:center;">
           <div style="width:18px; height:18px; border-radius:50%; background:#60A5FA; box-shadow:0 0 0 6px rgba(96,165,250,0.22);"></div>
           <span style="font-family:'Space Mono',monospace; font-size:13px; color:#A9CCFB; margin-top:8px;">−25 m</span>
         </div>
-        <div></div>
+        <div class="palier-empty"></div>
       </div>
 
       <!-- palier 4 (right) −38m -->
-      <div class="reveal" style="position:relative; display:grid; grid-template-columns:1fr 90px 1fr; align-items:center; margin-bottom:38px;">
-        <div></div>
-        <div style="display:flex; flex-direction:column; align-items:center;">
+      <div class="reveal palier" style="position:relative; display:grid; grid-template-columns:1fr 90px 1fr; align-items:center; margin-bottom:38px;">
+        <div class="palier-empty"></div>
+        <div class="palier-dot" style="display:flex; flex-direction:column; align-items:center;">
           <div style="width:18px; height:18px; border-radius:50%; background:#A78BFA; box-shadow:0 0 0 6px rgba(167,139,250,0.22);"></div>
           <span style="font-family:'Space Mono',monospace; font-size:13px; color:#C9B8FB; margin-top:8px;">−38 m</span>
         </div>
-        <div style="background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); border-radius:22px; padding:26px; backdrop-filter:blur(10px);">
+        <div class="palier-card" style="background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); border-radius:22px; padding:26px; backdrop-filter:blur(10px);">
           <div style="font-size:30px; margin-bottom:10px;">📊</div>
           <h3 style="margin:0 0 8px; font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:21px; color:#fff;">Tableau de bord & stats</h3>
           <p style="margin:0; font-size:14px; line-height:1.6; color:rgba(255,255,255,0.7);">Plongées par année, mois, lieu, type. Graphique mensuel et historique annuel de toute ta carrière.</p>
@@ -261,26 +280,26 @@
       </div>
 
       <!-- palier 5 (left) −52m — accentué -->
-      <div class="reveal" style="position:relative; display:grid; grid-template-columns:1fr 90px 1fr; align-items:center;">
-        <div style="background:linear-gradient(150deg,rgba(255,107,53,0.22),rgba(255,255,255,0.06)); border:1px solid rgba(255,138,101,0.4); border-radius:22px; padding:26px; backdrop-filter:blur(10px); text-align:right;">
+      <div class="reveal palier" style="position:relative; display:grid; grid-template-columns:1fr 90px 1fr; align-items:center;">
+        <div class="palier-card" style="background:linear-gradient(150deg,rgba(255,107,53,0.22),rgba(255,255,255,0.06)); border:1px solid rgba(255,138,101,0.4); border-radius:22px; padding:26px; backdrop-filter:blur(10px); text-align:right;">
           <div style="font-size:30px; margin-bottom:10px;">⚡</div>
           <h3 style="margin:0 0 8px; font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:21px; color:#fff;">Gagne de l'XP à chaque bulle</h3>
           <p style="margin:0; font-size:14px; line-height:1.6; color:rgba(255,255,255,0.72);">Chaque plongée, chaque brevet fait monter ton niveau. Ta carrière sous-marine devient une aventure.</p>
         </div>
-        <div style="display:flex; flex-direction:column; align-items:center;">
+        <div class="palier-dot" style="display:flex; flex-direction:column; align-items:center;">
           <div style="width:22px; height:22px; border-radius:50%; background:#FF6B35; box-shadow:0 0 0 7px rgba(255,107,53,0.28);"></div>
           <span style="font-family:'Space Mono',monospace; font-size:13px; color:#FFB067; margin-top:8px;">−52 m</span>
         </div>
-        <div></div>
+        <div class="palier-empty"></div>
       </div>
     </div>
   </div>
 
   <!-- GALLERY at depth -->
-  <div style="position:relative; padding:40px 0 80px 56px;">
+  <div class="gallery-sec" style="position:relative; padding:40px 0 80px 56px;">
     <div class="reveal" style="text-align:center; margin:0 auto 44px;">
       <div style="font-family:'Space Mono',monospace; color:#9FE4F5; font-size:13px; letter-spacing:0.12em; margin-bottom:12px;">FOND · −60 m</div>
-      <h2 style="margin:0; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:36px; letter-spacing:-0.02em; color:#fff;">Explore l'app.</h2>
+      <h2 class="sec-title" style="margin:0; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:36px; letter-spacing:-0.02em; color:#fff;">Explore l'app.</h2>
     </div>
     <div class="gallery" style="display:flex; gap:22px; justify-content:center; padding:0 40px; overflow:hidden;">
       <div class="reveal" style="width:186px; flex-shrink:0; border-radius:32px; padding:7px; background:linear-gradient(160deg,#2b3c50,#0b1420); box-shadow:0 24px 54px rgba(0,0,0,0.5); transform:translateY(16px);"><img src="assets/screens/carnet.png" alt="Mon carnet de plongées" style="width:100%; display:block; border-radius:26px;"></div>
@@ -293,7 +312,7 @@
 
   <!-- STORY -->
   <div id="projet" class="pad-side" style="position:relative; padding:70px 56px 70px 90px;">
-    <div class="reveal" style="display:grid; grid-template-columns:auto 1fr; gap:40px; align-items:center; max-width:940px; margin:0 auto; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.14); border-radius:26px; padding:40px; backdrop-filter:blur(10px);">
+    <div class="reveal story-card" style="display:grid; grid-template-columns:auto 1fr; gap:40px; align-items:center; max-width:940px; margin:0 auto; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.14); border-radius:26px; padding:40px; backdrop-filter:blur(10px);">
       <img src="assets/images/icon.png" alt="Mon Carnet de Plongée" style="width:120px; height:120px; border-radius:30px; box-shadow:0 20px 50px rgba(0,0,0,0.4);">
       <div>
         <h2 style="margin:0 0 16px; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:32px; line-height:1.1; letter-spacing:-0.02em; color:#fff;">Par un plongeur, pour les plongeurs.</h2>
