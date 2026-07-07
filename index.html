@@ -44,6 +44,19 @@
     .store-btn { transition: transform .2s ease; }
     .store-btn:hover { transform: translateY(-2px); }
 
+    /* Galerie « Explore l'app » — projecteur roaming */
+    .gcard { position: relative; transition: transform .7s cubic-bezier(.22,.61,.36,1), box-shadow .6s ease, opacity .6s ease, filter .6s ease; }
+    .gallery.spotting .gcard { opacity: .5; filter: saturate(.85) brightness(.78); }
+    .gallery.spotting .gcard.spot {
+      opacity: 1; filter: none; z-index: 3;
+      transform: translateY(-14px) scale(1.07);
+      animation: spotPulse 2s ease-in-out infinite;
+    }
+    @keyframes spotPulse {
+      0%, 100% { box-shadow: 0 30px 70px rgba(0,0,0,.55), 0 0 0 2px rgba(34,211,238,.6), 0 0 40px 4px rgba(34,211,238,.35); }
+      50%      { box-shadow: 0 36px 84px rgba(0,0,0,.6), 0 0 0 2px rgba(34,211,238,.95), 0 0 64px 12px rgba(34,211,238,.55); }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       * { animation: none !important; }
       .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
@@ -397,6 +410,71 @@
       el.style.transitionDelay = (idx * 90) + 'ms';
       byParent.set(p, idx + 1);
       io.observe(el);
+    });
+  })();
+
+  // Galerie « Explore l'app » — projecteur roaming (met une page en avant, puis une autre)
+  (function () {
+    var gal = document.querySelector('.gallery');
+    if (!gal) return;
+    var cards = [].slice.call(gal.querySelectorAll('.gcard'));
+    if (cards.length < 2) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    // Ordre volontairement non linéaire (pas l'ordre affiché), complété si besoin.
+    var order = [0, 4, 2, 6, 1, 7, 3, 5].filter(function (i) { return i < cards.length; });
+    cards.forEach(function (_, i) { if (order.indexOf(i) < 0) order.push(i); });
+
+    var pos = 0, timer = null, hold = 0;
+    var isMobile = function () { return window.matchMedia('(max-width: 900px)').matches; };
+
+    function spot() {
+      if (Date.now() < hold) return;
+      var idx = order[pos % order.length];
+      cards.forEach(function (c, i) { c.classList.toggle('spot', i === idx); });
+      if (isMobile()) {
+        var c = cards[idx];
+        var target = c.offsetLeft - (gal.clientWidth - c.clientWidth) / 2;
+        if (target < 0) target = 0;
+        gal.scrollTo({ left: target, behavior: 'smooth' });
+      }
+      pos++;
+    }
+    function start() {
+      if (timer) return;
+      cards.forEach(function (c) { c.style.transitionDelay = '0ms'; }); // annule le stagger d'apparition
+      gal.classList.add('spotting');
+      spot();
+      timer = setInterval(spot, 2000);
+    }
+    function stop() {
+      if (timer) { clearInterval(timer); timer = null; }
+      gal.classList.remove('spotting');
+      cards.forEach(function (c) { c.classList.remove('spot'); });
+    }
+
+    // Active seulement quand la galerie est à l'écran (scroll-based, robuste).
+    function inView() {
+      var r = gal.getBoundingClientRect();
+      return r.top < window.innerHeight * 0.85 && r.bottom > window.innerHeight * 0.18;
+    }
+    function check() { inView() ? start() : stop(); }
+    check();
+    window.addEventListener('scroll', check, { passive: true });
+    window.addEventListener('resize', check, { passive: true });
+
+    // Sur mobile, laisse la main à l'utilisateur qui fait défiler le carrousel (pause temporaire).
+    gal.addEventListener('touchstart', function () { hold = Date.now() + 6000; }, { passive: true });
+    // Sur desktop, le survol met CETTE carte en avant tant que la souris reste dessus.
+    gal.addEventListener('mouseover', function (e) {
+      var card = e.target.closest && e.target.closest('.gcard');
+      if (!card) return;
+      // Survol = met CETTE carte en avant immédiatement.
+      var idx = cards.indexOf(card);
+      if (idx < 0) return;
+      cards.forEach(function (c, i) { c.classList.toggle('spot', i === idx); });
+      pos = order.indexOf(idx) + 1;
+      hold = Date.now() + 1500;
     });
   })();
 </script>
