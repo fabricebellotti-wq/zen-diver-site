@@ -1,46 +1,363 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mon Carnet de Plongée</title>
-  <meta name="description" content="Mon carnet de plongée numérique pour iPhone. Toutes tes immersions dans ta poche.">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mon Carnet de Plongée — ton carnet de plongée & apnée</title>
+  <meta name="description" content="Mon Carnet de Plongée : ton carnet papier devient numérique. Journal, brevets, statistiques, sites — loisir, Tek, souterraine et apnée. Sur iPhone.">
+  <link rel="icon" href="assets/images/icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Mon Carnet de Plongée">
+  <meta property="og:description" content="Ton carnet papier devient numérique. Journal, brevets, stats, sites — dans ta poche.">
+  <meta property="og:image" content="assets/images/icon.png">
+  <meta property="og:url" content="https://zen-diver.fr">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: #010E15;
+      color: #fff;
+      font-family: 'Instrument Sans', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      padding: 24px 0;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+    @keyframes rise {
+      0% { transform: translateY(0) translateX(0); opacity: 0; }
+      12% { opacity: 0.7; }
+      100% { transform: translateY(-260px) translateX(14px); opacity: 0; }
+    }
+    @keyframes rays {
+      0%,100% { opacity: 0.35; transform: skewX(-16deg) translateX(0); }
+      50% { opacity: 0.6; transform: skewX(-16deg) translateX(12px); }
+    }
+    @keyframes riseIn { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1); will-change: opacity, transform; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    .store-btn { transition: transform .2s ease; }
+    .store-btn:hover { transform: translateY(-2px); }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; }
+      .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+
+    @media (max-width: 900px) {
+      body { padding: 0; }
+      #site { border-radius: 0 !important; box-shadow: none !important; }
+      .hero-grid, .demo-grid { grid-template-columns: 1fr !important; }
+      .depth-ruler { display: none !important; }
+      .h1 { font-size: 40px !important; }
+      .pad-side { padding-left: 22px !important; padding-right: 22px !important; }
+      .gallery { overflow-x: auto !important; justify-content: flex-start !important; }
+      .footer { padding-left: 22px !important; }
+      .nav-sec { display: none !important; }
+      .nav-row { padding-top: 34px !important; padding-bottom: 18px !important; }
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <header class="site">
-      <div class="logo">🌊</div>
-      <div>
-        <h1>Mon Carnet de Plongée</h1>
-        <div class="subtitle">Ton carnet papier, dans ton iPhone.</div>
+
+<section id="site" style="position:relative; max-width:1280px; width:100%; margin:0 auto; border-radius:28px; overflow:hidden; box-shadow:0 40px 120px rgba(0,0,0,0.45); background:linear-gradient(180deg, #17B0CE 0%, #0E8BAD 12%, #0E7C9C 26%, #086080 44%, #04425A 62%, #032F42 78%, #021C29 90%, #010E15 100%); font-family:'Instrument Sans',sans-serif;">
+
+  <!-- depth ruler -->
+  <div class="depth-ruler" style="position:absolute; top:0; bottom:0; left:0; width:56px; z-index:40; border-right:1px solid rgba(255,255,255,0.12); background:rgba(255,255,255,0.04);">
+    <div style="position:absolute; top:120px; left:0; right:0; bottom:60px; background-image:repeating-linear-gradient(180deg, rgba(255,255,255,0.28) 0 1px, transparent 1px 44px);"></div>
+    <div style="position:absolute; top:120px; left:0; right:0; bottom:60px; background-image:repeating-linear-gradient(180deg, rgba(255,255,255,0.55) 0 2px, transparent 2px 220px);"></div>
+  </div>
+
+  <!-- rising bubbles -->
+  <div style="position:absolute; left:18%; top:640px; width:10px; height:10px; border-radius:50%; background:rgba(255,255,255,0.5); animation:rise 7s ease-in infinite; pointer-events:none;"></div>
+  <div style="position:absolute; left:34%; top:900px; width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.4); animation:rise 9s ease-in infinite 1.5s; pointer-events:none;"></div>
+  <div style="position:absolute; left:72%; top:1200px; width:12px; height:12px; border-radius:50%; background:rgba(255,255,255,0.4); animation:rise 8s ease-in infinite 0.6s; pointer-events:none;"></div>
+  <div style="position:absolute; left:60%; top:760px; width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.5); animation:rise 6.5s ease-in infinite 2.2s; pointer-events:none;"></div>
+  <div style="position:absolute; left:86%; top:1500px; width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,0.35); animation:rise 10s ease-in infinite 1s; pointer-events:none;"></div>
+
+  <!-- HERO / SURFACE -->
+  <div style="position:relative; padding-left:56px; overflow:hidden;">
+    <div style="position:absolute; top:-40px; left:20%; width:80px; height:520px; background:linear-gradient(180deg, rgba(255,255,255,0.5), transparent); transform:skewX(-18deg); filter:blur(6px); animation:rays 9s ease-in-out infinite; pointer-events:none;"></div>
+    <div style="position:absolute; top:-40px; left:44%; width:130px; height:640px; background:linear-gradient(180deg, rgba(255,255,255,0.4), transparent); transform:skewX(-12deg); filter:blur(8px); animation:rays 11s ease-in-out infinite 1s; pointer-events:none;"></div>
+    <div style="position:absolute; top:-40px; left:70%; width:90px; height:560px; background:linear-gradient(180deg, rgba(255,255,255,0.45), transparent); transform:skewX(-20deg); filter:blur(7px); animation:rays 10s ease-in-out infinite 0.5s; pointer-events:none;"></div>
+
+    <!-- nav -->
+    <div class="pad-side nav-row" style="position:relative; z-index:10; display:flex; align-items:center; justify-content:space-between; padding:62px 56px 26px; flex-wrap:wrap; gap:16px;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <img src="assets/images/icon.png" alt="Mon Carnet de Plongée" style="width:40px; height:40px; border-radius:11px; box-shadow:0 6px 18px rgba(0,0,0,0.35);">
+        <span style="color:#fff; font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:18px;">Mon Carnet de Plongée</span>
       </div>
-    </header>
-
-    <h1 class="page-title">Bienvenue</h1>
-    <p class="page-subtitle">
-      Mon Carnet de Plongée est une application iPhone qui remplace ton carnet de plongée papier.
-      Saisis tes immersions, suis tes statistiques, garde tes brevets et ton certificat médical à portée de main.
-    </p>
-
-    <div class="cards">
-      <a class="card" href="/privacy">
-        <h3>Politique de confidentialité</h3>
-        <p>Comment tes données sont collectées, stockées et protégées.</p>
-      </a>
-      <a class="card" href="/support">
-        <h3>Support</h3>
-        <p>Une question, un bug, une idée ? Contacte-nous.</p>
-      </a>
+      <div style="display:flex; align-items:center; gap:30px;">
+        <span class="nav-sec" style="color:rgba(255,255,255,0.6); font-size:15px; font-weight:400; font-family:'Space Mono',monospace;">−0m</span>
+        <a class="nav-sec" href="#paliers" style="color:rgba(255,255,255,0.85); font-size:15px; font-weight:500;">Fonctions</a>
+        <a class="nav-sec" href="#projet" style="color:rgba(255,255,255,0.85); font-size:15px; font-weight:500;">Le projet</a>
+        <a href="https://apps.apple.com/app/id6769454355" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; background:#fff; color:#04425A; font-weight:700; font-size:14px; padding:11px 20px; border-radius:999px; box-shadow:0 8px 22px rgba(3,31,46,0.25);">Plonger →</a>
+      </div>
     </div>
 
-    <footer class="site">
-      <div>© 2026 Mon Carnet de Plongée</div>
-      <nav>
-        <a href="/privacy">Confidentialité</a>
-        <a href="/support">Support</a>
-      </nav>
-    </footer>
+    <!-- hero grid -->
+    <div class="hero-grid pad-side" style="position:relative; z-index:10; display:grid; grid-template-columns:1.05fr 0.95fr; gap:20px; align-items:center; padding:30px 56px 60px;">
+      <div>
+        <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.28); color:#fff; font-size:13px; font-weight:600; padding:7px 14px; border-radius:999px; margin-bottom:24px; font-family:'Space Mono',monospace; animation:riseIn 0.7s cubic-bezier(.22,.61,.36,1) both;">🌊 SURFACE · 0 m</div>
+        <h1 class="h1" style="margin:0 0 22px; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:66px; line-height:0.98; letter-spacing:-0.03em; color:#fff; text-shadow:0 4px 30px rgba(0,0,0,0.2); animation:riseIn 0.8s cubic-bezier(.22,.61,.36,1) 0.08s both;">Prends ton palier.<br>On descend<br><span style="color:#FFCf9e;">ensemble.</span></h1>
+        <p style="margin:0 0 32px; max-width:470px; font-size:19px; line-height:1.55; color:rgba(255,255,255,0.82); animation:riseIn 0.8s cubic-bezier(.22,.61,.36,1) 0.18s both;">Chaque section de cette page est un palier. Descends et découvre comment ton carnet papier devient numérique : journal, brevets, stats, le tout dans ta poche.</p>
+        <div id="stores" style="display:flex; align-items:center; gap:14px; flex-wrap:wrap; animation:riseIn 0.8s cubic-bezier(.22,.61,.36,1) 0.28s both;">
+          <a class="store-btn" href="https://apps.apple.com/app/id6769454355" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:11px; background:#fff; color:#04425A; padding:13px 22px; border-radius:14px; font-weight:600;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="#04425A"><path d="M16.5 1.5c.1 1.2-.4 2.3-1.1 3.1-.7.9-1.9 1.5-3 1.4-.1-1.1.4-2.3 1.1-3 .7-.8 2-1.4 3-1.5zM20 17.2c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C1.2 16.5.9 12 2.5 9.6c1-1.6 2.6-2.5 4.2-2.5 1.6 0 2.6 1 3.9 1s2.1-1 3.9-1c1.4 0 2.9.8 3.9 2.1-3.4 1.9-2.9 6.8-.5 8z"/></svg>
+            <span style="display:flex; flex-direction:column; line-height:1.1;"><span style="font-size:11px; opacity:0.6;">Télécharger sur</span><span style="font-size:17px; font-weight:700; font-family:'Bricolage Grotesque',sans-serif;">App Store</span></span>
+          </a>
+          <span aria-disabled="true" style="display:inline-flex; align-items:center; gap:11px; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.22); color:rgba(255,255,255,0.7); padding:13px 22px; border-radius:14px; font-weight:600; cursor:default;">
+            <svg width="20" height="22" viewBox="0 0 24 24" style="opacity:0.85;"><path fill="#00E5A0" d="M3.6 1.8 14 12 3.6 22.2c-.4-.2-.6-.6-.6-1.1V2.9c0-.5.2-.9.6-1.1z"/><path fill="#FFD400" d="M17.9 8.5 21 10.3c.8.5.8 1.7 0 2.2l-3.1 1.8L14 12l3.9-3.5z"/><path fill="#FF6B5C" d="M3.6 1.8c.3-.2.7-.2 1.1 0L17.9 8.5 14 12 3.6 1.8z"/><path fill="#00A6FF" d="M14 12l3.9 3.5L4.7 22.2c-.4.2-.8.2-1.1 0L14 12z"/></svg>
+            <span style="display:flex; flex-direction:column; line-height:1.1;"><span style="font-size:11px; opacity:0.7;">Bientôt sur</span><span style="font-size:17px; font-weight:700; font-family:'Bricolage Grotesque',sans-serif;">Google Play</span></span>
+          </span>
+        </div>
+      </div>
+      <div style="position:relative; display:flex; justify-content:center; align-items:center; min-height:600px;">
+        <div style="position:relative; z-index:2; width:270px; animation:floatY 7s ease-in-out infinite;">
+          <div style="border-radius:46px; padding:10px; background:linear-gradient(160deg,#2b3c50,#0b1420); box-shadow:0 50px 100px rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.12);">
+            <img src="assets/screens/dashboard.png" alt="Tableau de bord Mon Carnet de Plongée" style="width:100%; display:block; border-radius:37px;">
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- DÉMO / DIAPORAMA -->
+  <div class="pad-side" style="position:relative; padding:10px 56px 70px 90px;">
+    <div class="reveal" style="text-align:center; margin:0 auto 40px;">
+      <div style="font-family:'Space Mono',monospace; color:#9FE4F5; font-size:13px; letter-spacing:0.14em; margin-bottom:12px;">DÉMO · 30 SECONDES</div>
+      <h2 style="margin:0; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:40px; letter-spacing:-0.02em; color:#fff;">L'app en un coup d'œil.</h2>
+    </div>
+
+    <div id="demo" style="max-width:1000px; margin:0 auto;">
+      <div class="demo-grid" style="display:grid; grid-template-columns:1fr auto; gap:56px; align-items:center;">
+        <!-- captions stack -->
+        <div style="position:relative; min-height:210px;">
+          <div data-cap style="position:absolute; inset:0; opacity:1; transition:opacity 0.5s ease;">
+            <div style="font-family:'Space Mono',monospace; font-size:15px; color:#7DEBFF; margin-bottom:14px;">01 / 05</div>
+            <h3 style="margin:0 0 12px; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:30px; line-height:1.05; color:#fff;">Ton tableau de bord gamifié</h3>
+            <p style="margin:0; font-size:17px; line-height:1.55; color:rgba(255,255,255,0.72); max-width:400px;">Suis ta progression, ton niveau, tes défis du mois et ton objectif annuel de plongées.</p>
+          </div>
+          <div data-cap style="position:absolute; inset:0; opacity:0; transition:opacity 0.5s ease;">
+            <div style="font-family:'Space Mono',monospace; font-size:15px; color:#7DEBFF; margin-bottom:14px;">02 / 05</div>
+            <h3 style="margin:0 0 12px; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:30px; line-height:1.05; color:#fff;">Toutes tes plongées, classées</h3>
+            <p style="margin:0; font-size:17px; line-height:1.55; color:rgba(255,255,255,0.72); max-width:400px;">Ton carnet par année et par mois, tes plongées prévues, tes types et niveaux d'un coup d'œil.</p>
+          </div>
+          <div data-cap style="position:absolute; inset:0; opacity:0; transition:opacity 0.5s ease;">
+            <div style="font-family:'Space Mono',monospace; font-size:15px; color:#7DEBFF; margin-bottom:14px;">03 / 05</div>
+            <h3 style="margin:0 0 12px; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:30px; line-height:1.05; color:#fff;">Une plongée en 30 secondes</h3>
+            <p style="margin:0; font-size:17px; line-height:1.55; color:rgba(255,255,255,0.72); max-width:400px;">Loisir, Tek, souterraine ou apnée : saisis l'essentiel en un instant, ou importe depuis ton ordinateur.</p>
+          </div>
+          <div data-cap style="position:absolute; inset:0; opacity:0; transition:opacity 0.5s ease;">
+            <div style="font-family:'Space Mono',monospace; font-size:15px; color:#7DEBFF; margin-bottom:14px;">04 / 05</div>
+            <h3 style="margin:0 0 12px; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:30px; line-height:1.05; color:#fff;">Tes sites sur la carte</h3>
+            <p style="margin:0; font-size:17px; line-height:1.55; color:rgba(255,255,255,0.72); max-width:400px;">Tous tes spots géolocalisés, notés et prêts à être revisités, de la carrière locale à la croisière lointaine.</p>
+          </div>
+          <div data-cap style="position:absolute; inset:0; opacity:0; transition:opacity 0.5s ease;">
+            <div style="font-family:'Space Mono',monospace; font-size:15px; color:#7DEBFF; margin-bottom:14px;">05 / 05</div>
+            <h3 style="margin:0 0 12px; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:30px; line-height:1.05; color:#fff;">Brevets & documents à portée</h3>
+            <p style="margin:0; font-size:17px; line-height:1.55; color:rgba(255,255,255,0.72); max-width:400px;">Licence, certificat médical, brevets, encadrants et centres. Tout te suit, même hors-ligne.</p>
+          </div>
+        </div>
+
+        <!-- phone -->
+        <div style="width:264px; animation:floatY 7s ease-in-out infinite;">
+          <div style="border-radius:46px; padding:10px; background:linear-gradient(160deg,#2b3c50,#0b1420); box-shadow:0 44px 90px rgba(0,0,0,0.55); border:1px solid rgba(255,255,255,0.12);">
+            <div style="position:relative; aspect-ratio:250/542; border-radius:37px; overflow:hidden; background:#010A12;">
+              <div data-slide style="position:absolute; inset:0; opacity:1; z-index:2; transition:opacity 0.6s ease;"><img src="assets/screens/dashboard.png" alt="Tableau de bord" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+              <div data-slide style="position:absolute; inset:0; opacity:0; z-index:1; transition:opacity 0.6s ease;"><img src="assets/screens/carnet.png" alt="Carnet" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+              <div data-slide style="position:absolute; inset:0; opacity:0; z-index:1; transition:opacity 0.6s ease;"><img src="assets/screens/nouvelle-plongee.png" alt="Nouvelle plongée" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+              <div data-slide style="position:absolute; inset:0; opacity:0; z-index:1; transition:opacity 0.6s ease;"><img src="assets/screens/sites.png" alt="Sites" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+              <div data-slide style="position:absolute; inset:0; opacity:0; z-index:1; transition:opacity 0.6s ease;"><img src="assets/screens/profil.png" alt="Profil" style="width:100%; height:100%; object-fit:cover; display:block;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- controls -->
+      <div style="display:flex; align-items:center; justify-content:center; gap:16px; margin-top:36px;">
+        <button data-prev aria-label="Précédent" style="width:40px; height:40px; border-radius:20px; border:1px solid rgba(255,255,255,0.25); background:rgba(255,255,255,0.08); color:#fff; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center;">‹</button>
+        <div style="display:flex; align-items:center; gap:9px;">
+          <button data-dot aria-label="Aller au slide 1" style="height:8px; width:26px; border:none; padding:0; border-radius:99px; background:#22D3EE; cursor:pointer; transition:all 0.4s ease;"></button>
+          <button data-dot aria-label="Aller au slide 2" style="height:8px; width:8px; border:none; padding:0; border-radius:99px; background:rgba(255,255,255,0.3); cursor:pointer; transition:all 0.4s ease;"></button>
+          <button data-dot aria-label="Aller au slide 3" style="height:8px; width:8px; border:none; padding:0; border-radius:99px; background:rgba(255,255,255,0.3); cursor:pointer; transition:all 0.4s ease;"></button>
+          <button data-dot aria-label="Aller au slide 4" style="height:8px; width:8px; border:none; padding:0; border-radius:99px; background:rgba(255,255,255,0.3); cursor:pointer; transition:all 0.4s ease;"></button>
+          <button data-dot aria-label="Aller au slide 5" style="height:8px; width:8px; border:none; padding:0; border-radius:99px; background:rgba(255,255,255,0.3); cursor:pointer; transition:all 0.4s ease;"></button>
+        </div>
+        <button data-next aria-label="Suivant" style="width:40px; height:40px; border-radius:20px; border:1px solid rgba(255,255,255,0.25); background:rgba(255,255,255,0.08); color:#fff; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center;">›</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESCENT TIMELINE -->
+  <div id="paliers" class="pad-side" style="position:relative; padding:20px 70px 80px 90px;">
+    <div class="reveal" style="text-align:center; margin:0 auto 50px;">
+      <div style="font-family:'Space Mono',monospace; color:#9FE4F5; font-size:13px; letter-spacing:0.12em; margin-bottom:12px;">⌄ PROFIL DE PLONGÉE</div>
+      <h2 style="margin:0; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:40px; letter-spacing:-0.02em; color:#fff;">Cinq paliers, tout ton carnet.</h2>
+    </div>
+
+    <div style="position:relative; max-width:980px; margin:0 auto;">
+      <div style="position:absolute; left:50%; top:0; bottom:0; width:0; border-left:2px dashed rgba(255,255,255,0.3); transform:translateX(-1px);"></div>
+
+      <!-- palier 1 (left) −6m -->
+      <div class="reveal" style="position:relative; display:grid; grid-template-columns:1fr 90px 1fr; align-items:center; margin-bottom:38px;">
+        <div style="background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); border-radius:22px; padding:26px; backdrop-filter:blur(10px); text-align:right;">
+          <div style="font-size:30px; margin-bottom:10px;">📝</div>
+          <h3 style="margin:0 0 8px; font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:21px; color:#fff;">Une plongée en 30 secondes</h3>
+          <p style="margin:0; font-size:14px; line-height:1.6; color:rgba(255,255,255,0.7);">Date, lieu, profondeur, paliers, encadrant. Photo du tampon du moniteur et sa signature, comme sur le papier.</p>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center;">
+          <div style="width:18px; height:18px; border-radius:50%; background:#FFCf9e; box-shadow:0 0 0 6px rgba(255,207,158,0.22);"></div>
+          <span style="font-family:'Space Mono',monospace; font-size:13px; color:#FFCf9e; margin-top:8px;">−6 m</span>
+        </div>
+        <div></div>
+      </div>
+
+      <!-- palier 2 (right) −15m -->
+      <div class="reveal" style="position:relative; display:grid; grid-template-columns:1fr 90px 1fr; align-items:center; margin-bottom:38px;">
+        <div></div>
+        <div style="display:flex; flex-direction:column; align-items:center;">
+          <div style="width:18px; height:18px; border-radius:50%; background:#34D399; box-shadow:0 0 0 6px rgba(52,211,153,0.22);"></div>
+          <span style="font-family:'Space Mono',monospace; font-size:13px; color:#7DECC0; margin-top:8px;">−15 m</span>
+        </div>
+        <div style="background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); border-radius:22px; padding:26px; backdrop-filter:blur(10px);">
+          <div style="font-size:30px; margin-bottom:10px;">📚</div>
+          <h3 style="margin:0 0 8px; font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:21px; color:#fff;">Brevets & documents FFESSM</h3>
+          <p style="margin:0; font-size:14px; line-height:1.6; color:rgba(255,255,255,0.7);">Licence, certificat médical, tous tes brevets au même endroit, avec alerte de validité du certificat.</p>
+        </div>
+      </div>
+
+      <!-- palier 3 (left) −25m -->
+      <div class="reveal" style="position:relative; display:grid; grid-template-columns:1fr 90px 1fr; align-items:center; margin-bottom:38px;">
+        <div style="background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); border-radius:22px; padding:26px; backdrop-filter:blur(10px); text-align:right;">
+          <div style="font-size:30px; margin-bottom:10px;">📡</div>
+          <h3 style="margin:0 0 8px; font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:21px; color:#fff;">Import ordinateur en Bluetooth</h3>
+          <p style="margin:0; font-size:14px; line-height:1.6; color:rgba(255,255,255,0.7);">Connecte ton ordinateur de plongée et récupère tes profils de profondeur sans rien ressaisir.</p>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center;">
+          <div style="width:18px; height:18px; border-radius:50%; background:#60A5FA; box-shadow:0 0 0 6px rgba(96,165,250,0.22);"></div>
+          <span style="font-family:'Space Mono',monospace; font-size:13px; color:#A9CCFB; margin-top:8px;">−25 m</span>
+        </div>
+        <div></div>
+      </div>
+
+      <!-- palier 4 (right) −38m -->
+      <div class="reveal" style="position:relative; display:grid; grid-template-columns:1fr 90px 1fr; align-items:center; margin-bottom:38px;">
+        <div></div>
+        <div style="display:flex; flex-direction:column; align-items:center;">
+          <div style="width:18px; height:18px; border-radius:50%; background:#A78BFA; box-shadow:0 0 0 6px rgba(167,139,250,0.22);"></div>
+          <span style="font-family:'Space Mono',monospace; font-size:13px; color:#C9B8FB; margin-top:8px;">−38 m</span>
+        </div>
+        <div style="background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); border-radius:22px; padding:26px; backdrop-filter:blur(10px);">
+          <div style="font-size:30px; margin-bottom:10px;">📊</div>
+          <h3 style="margin:0 0 8px; font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:21px; color:#fff;">Tableau de bord & stats</h3>
+          <p style="margin:0; font-size:14px; line-height:1.6; color:rgba(255,255,255,0.7);">Plongées par année, mois, lieu, type. Graphique mensuel et historique annuel de toute ta carrière.</p>
+        </div>
+      </div>
+
+      <!-- palier 5 (left) −52m — accentué -->
+      <div class="reveal" style="position:relative; display:grid; grid-template-columns:1fr 90px 1fr; align-items:center;">
+        <div style="background:linear-gradient(150deg,rgba(255,107,53,0.22),rgba(255,255,255,0.06)); border:1px solid rgba(255,138,101,0.4); border-radius:22px; padding:26px; backdrop-filter:blur(10px); text-align:right;">
+          <div style="font-size:30px; margin-bottom:10px;">⚡</div>
+          <h3 style="margin:0 0 8px; font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:21px; color:#fff;">Gagne de l'XP à chaque bulle</h3>
+          <p style="margin:0; font-size:14px; line-height:1.6; color:rgba(255,255,255,0.72);">Chaque plongée, chaque brevet fait monter ton niveau. Ta carrière sous-marine devient une aventure.</p>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center;">
+          <div style="width:22px; height:22px; border-radius:50%; background:#FF6B35; box-shadow:0 0 0 7px rgba(255,107,53,0.28);"></div>
+          <span style="font-family:'Space Mono',monospace; font-size:13px; color:#FFB067; margin-top:8px;">−52 m</span>
+        </div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALLERY at depth -->
+  <div style="position:relative; padding:40px 0 80px 56px;">
+    <div class="reveal" style="text-align:center; margin:0 auto 44px;">
+      <div style="font-family:'Space Mono',monospace; color:#9FE4F5; font-size:13px; letter-spacing:0.12em; margin-bottom:12px;">FOND · −60 m</div>
+      <h2 style="margin:0; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:36px; letter-spacing:-0.02em; color:#fff;">Explore l'app.</h2>
+    </div>
+    <div class="gallery" style="display:flex; gap:22px; justify-content:center; padding:0 40px; overflow:hidden;">
+      <div class="reveal" style="width:186px; flex-shrink:0; border-radius:32px; padding:7px; background:linear-gradient(160deg,#2b3c50,#0b1420); box-shadow:0 24px 54px rgba(0,0,0,0.5); transform:translateY(16px);"><img src="assets/screens/carnet.png" alt="Mon carnet de plongées" style="width:100%; display:block; border-radius:26px;"></div>
+      <div class="reveal" style="width:186px; flex-shrink:0; border-radius:32px; padding:7px; background:linear-gradient(160deg,#2b3c50,#0b1420); box-shadow:0 24px 54px rgba(0,0,0,0.5);"><img src="assets/screens/stats.png" alt="Statistiques et historique" style="width:100%; display:block; border-radius:26px;"></div>
+      <div class="reveal" style="width:186px; flex-shrink:0; border-radius:32px; padding:7px; background:linear-gradient(160deg,#2b3c50,#0b1420); box-shadow:0 24px 54px rgba(0,0,0,0.5); transform:translateY(-12px);"><img src="assets/screens/nouvelle-plongee.png" alt="Saisie d'une nouvelle plongée" style="width:100%; display:block; border-radius:26px;"></div>
+      <div class="reveal" style="width:186px; flex-shrink:0; border-radius:32px; padding:7px; background:linear-gradient(160deg,#2b3c50,#0b1420); box-shadow:0 24px 54px rgba(0,0,0,0.5);"><img src="assets/screens/sites.png" alt="Carte des sites de plongée" style="width:100%; display:block; border-radius:26px;"></div>
+      <div class="reveal" style="width:186px; flex-shrink:0; border-radius:32px; padding:7px; background:linear-gradient(160deg,#2b3c50,#0b1420); box-shadow:0 24px 54px rgba(0,0,0,0.5); transform:translateY(16px);"><img src="assets/screens/profil.png" alt="Mon profil" style="width:100%; display:block; border-radius:26px;"></div>
+    </div>
+  </div>
+
+  <!-- STORY -->
+  <div id="projet" class="pad-side" style="position:relative; padding:70px 56px 70px 90px;">
+    <div class="reveal" style="display:grid; grid-template-columns:auto 1fr; gap:40px; align-items:center; max-width:940px; margin:0 auto; background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.14); border-radius:26px; padding:40px; backdrop-filter:blur(10px);">
+      <img src="assets/images/icon.png" alt="Mon Carnet de Plongée" style="width:120px; height:120px; border-radius:30px; box-shadow:0 20px 50px rgba(0,0,0,0.4);">
+      <div>
+        <h2 style="margin:0 0 16px; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:32px; line-height:1.1; letter-spacing:-0.02em; color:#fff;">Par un plongeur, pour les plongeurs.</h2>
+        <p style="margin:0 0 12px; font-size:17px; line-height:1.6; color:rgba(255,255,255,0.85);">Marre des pages détrempées et des carnets oubliés au fond du sac. J'ai construit l'app que je voulais utiliser : sans fioriture, respectueuse de tes données, rapide à remplir après chaque sortie et synchronisée sur tous tes appareils.</p>
+        <p style="margin:0; font-size:15px; color:rgba(255,255,255,0.65);">Pas de pub, pas de tracking, pas de revente. <strong style="color:#fff;">Bonnes bulles.</strong> 🌊</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer" style="position:relative; background:rgba(0,0,0,0.35); padding:40px 56px 40px 90px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; border-top:1px solid rgba(255,255,255,0.1);">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <img src="assets/images/icon.png" alt="" style="width:30px; height:30px; border-radius:9px;">
+      <span style="color:rgba(255,255,255,0.7); font-size:14px; font-family:'Space Mono',monospace;">Mon Carnet de Plongée · zen-diver.fr</span>
+    </div>
+    <div style="display:flex; gap:26px; color:rgba(255,255,255,0.55); font-size:14px;">
+      <a href="/support">Support</a><a href="/privacy">Confidentialité</a><a href="mailto:contact@zen-diver.fr">contact@zen-diver.fr</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Diaporama démo (auto 4,2 s + flèches + points)
+  (function () {
+    var root = document.getElementById('demo');
+    if (!root) return;
+    var slides = [].slice.call(root.querySelectorAll('[data-slide]'));
+    var caps = [].slice.call(root.querySelectorAll('[data-cap]'));
+    var dots = [].slice.call(root.querySelectorAll('[data-dot]'));
+    var i = 0, timer = null;
+    function apply() {
+      var n = slides.length; if (!n) return;
+      i = ((i % n) + n) % n;
+      slides.forEach(function (s, k) { s.style.opacity = k === i ? '1' : '0'; s.style.zIndex = k === i ? '2' : '1'; });
+      caps.forEach(function (c, k) { c.style.opacity = k === i ? '1' : '0'; });
+      dots.forEach(function (d, k) { var on = k === i; d.style.width = on ? '26px' : '8px'; d.style.background = on ? '#22D3EE' : 'rgba(255,255,255,0.3)'; });
+    }
+    function go(k) { i = k; apply(); restart(); }
+    function restart() { if (timer) clearInterval(timer); timer = setInterval(function () { go(i + 1); }, 4200); }
+    dots.forEach(function (d, k) { d.addEventListener('click', function () { go(k); }); });
+    var p = root.querySelector('[data-prev]'), nx = root.querySelector('[data-next]');
+    if (p) p.addEventListener('click', function () { go(i - 1); });
+    if (nx) nx.addEventListener('click', function () { go(i + 1); });
+    apply(); restart();
+  })();
+
+  // Révélations au scroll (fade-up, une seule fois, avec léger stagger par groupe)
+  (function () {
+    var els = [].slice.call(document.querySelectorAll('.reveal'));
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (ents) {
+      ents.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    // Stagger : 90 ms entre frères directs partageant le même parent.
+    var byParent = new Map();
+    els.forEach(function (el) {
+      var p = el.parentElement;
+      var idx = byParent.get(p) || 0;
+      el.style.transitionDelay = (idx * 90) + 'ms';
+      byParent.set(p, idx + 1);
+      io.observe(el);
+    });
+  })();
+</script>
+
 </body>
 </html>
