@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mon Carnet de Plongée — ton carnet de plongée & apnée</title>
-  <meta name="description" content="Mon Carnet de Plongée : ton carnet papier devient numérique. Journal, brevets, statistiques, sites — loisir, Tek, souterraine et apnée. Sur iPhone.">
+  <meta name="description" content="Mon Carnet de Plongée : ton carnet papier devient numérique. Journal, brevets, statistiques, sites, partage social — loisir, Tek, souterraine et apnée. Sur iPhone.">
   <link rel="icon" href="assets/images/icon.png">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Mon Carnet de Plongée">
-  <meta property="og:description" content="Ton carnet papier devient numérique. Journal, brevets, stats, sites — dans ta poche.">
+  <meta property="og:description" content="Ton carnet papier devient numérique. Journal, brevets, stats, sites — et partage tes plongées en story.">
   <meta property="og:image" content="assets/images/icon.png">
   <meta property="og:url" content="https://zen-diver.fr">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -65,7 +65,7 @@
     @media (max-width: 900px) {
       body { padding: 0; }
       #site { border-radius: 0 !important; box-shadow: none !important; }
-      .hero-grid, .demo-grid { grid-template-columns: 1fr !important; }
+      .hero-grid, .demo-grid, .new-grid { grid-template-columns: 1fr !important; }
       .depth-ruler { display: none !important; }
       .h1 { font-size: 40px !important; }
       .pad-side { padding-left: 22px !important; padding-right: 22px !important; }
@@ -127,6 +127,7 @@
       </div>
       <div style="display:flex; align-items:center; gap:30px;">
         <span class="nav-sec" style="color:rgba(255,255,255,0.6); font-size:15px; font-weight:400; font-family:'Space Mono',monospace;">−0m</span>
+        <a class="nav-sec" href="#nouveautes" style="color:rgba(255,255,255,0.85); font-size:15px; font-weight:500;">Nouveautés</a>
         <a class="nav-sec" href="#paliers" style="color:rgba(255,255,255,0.85); font-size:15px; font-weight:500;">Fonctions</a>
         <a class="nav-sec" href="#projet" style="color:rgba(255,255,255,0.85); font-size:15px; font-weight:500;">Le projet</a>
         <a href="https://apps.apple.com/app/id6769454355" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; background:#fff; color:#04425A; font-weight:700; font-size:14px; padding:11px 20px; border-radius:999px; box-shadow:0 8px 22px rgba(3,31,46,0.25);">Plonger →</a>
@@ -138,7 +139,7 @@
       <div>
         <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.28); color:#fff; font-size:13px; font-weight:600; padding:7px 14px; border-radius:999px; margin-bottom:24px; font-family:'Space Mono',monospace; animation:riseIn 0.7s cubic-bezier(.22,.61,.36,1) both;">🌊 SURFACE · 0 m</div>
         <h1 class="h1" style="margin:0 0 22px; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:66px; line-height:0.98; letter-spacing:-0.03em; color:#fff; text-shadow:0 4px 30px rgba(0,0,0,0.2); animation:riseIn 0.8s cubic-bezier(.22,.61,.36,1) 0.08s both;">Le carnet de plongée<br><span style="color:#FFCf9e;">nouvelle génération.</span></h1>
-        <p style="margin:0 0 32px; max-width:470px; font-size:19px; line-height:1.55; color:rgba(255,255,255,0.82); animation:riseIn 0.8s cubic-bezier(.22,.61,.36,1) 0.18s both;">Chaque section de cette page est un palier. Descends et découvre comment ton carnet papier devient numérique : journal, brevets, stats, le tout dans ta poche.</p>
+        <p style="margin:0 0 32px; max-width:470px; font-size:19px; line-height:1.55; color:rgba(255,255,255,0.82); animation:riseIn 0.8s cubic-bezier(.22,.61,.36,1) 0.18s both;">Chaque section de cette page est un palier. Descends et découvre comment ton carnet papier devient numérique : journal, brevets, stats, partage, le tout dans ta poche.</p>
         <div id="stores" style="display:flex; align-items:center; gap:14px; flex-wrap:wrap; animation:riseIn 0.8s cubic-bezier(.22,.61,.36,1) 0.28s both;">
           <a class="store-btn" href="https://apps.apple.com/app/id6769454355" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:11px; background:#fff; color:#04425A; padding:13px 22px; border-radius:14px; font-weight:600;">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="#04425A"><path d="M16.5 1.5c.1 1.2-.4 2.3-1.1 3.1-.7.9-1.9 1.5-3 1.4-.1-1.1.4-2.3 1.1-3 .7-.8 2-1.4 3-1.5zM20 17.2c-.5 1.2-.8 1.7-1.4 2.7-.9 1.4-2.2 3.2-3.8 3.2-1.4 0-1.8-.9-3.7-.9s-2.3.9-3.7.9c-1.6 0-2.8-1.6-3.7-3C1.2 16.5.9 12 2.5 9.6c1-1.6 2.6-2.5 4.2-2.5 1.6 0 2.6 1 3.9 1s2.1-1 3.9-1c1.4 0 2.9.8 3.9 2.1-3.4 1.9-2.9 6.8-.5 8z"/></svg>
@@ -227,6 +228,41 @@
     </div>
   </div>
 
+  <!-- NOUVEAUTÉS 4.0 -->
+  <div id="nouveautes" class="pad-side" style="position:relative; padding:20px 56px 76px 90px;">
+    <div class="reveal" style="text-align:center; margin:0 auto 44px;">
+      <div style="font-family:'Space Mono',monospace; color:#9FE4F5; font-size:13px; letter-spacing:0.14em; margin-bottom:12px;">✦ NOUVEAU · VERSION 4.0 · JUILLET 2026</div>
+      <h2 class="sec-title" style="margin:0; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:40px; letter-spacing:-0.02em; color:#fff;">Tes plongées méritent d'être partagées.</h2>
+    </div>
+
+    <div class="new-grid" style="display:grid; grid-template-columns:1.35fr 1fr; gap:22px; max-width:980px; margin:0 auto;">
+      <!-- Partage social -->
+      <div class="reveal" style="background:linear-gradient(150deg,rgba(34,211,238,0.20),rgba(255,255,255,0.06)); border:1px solid rgba(34,211,238,0.4); border-radius:22px; padding:30px; backdrop-filter:blur(10px);">
+        <div style="font-size:30px; margin-bottom:10px;">📤</div>
+        <h3 style="margin:0 0 10px; font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:22px; color:#fff;">Partage social</h3>
+        <p style="margin:0 0 14px; font-size:15px; line-height:1.65; color:rgba(255,255,255,0.78);">Chaque plongée devient des cartes visuelles prêtes à publier : tes stats, la courbe de profondeur de ton ordinateur, tes photos et une carte par espèce rencontrée. Partage-les directement en story Instagram ou Facebook, sur WhatsApp, ou en carrousel multi-images.</p>
+        <ul style="margin:0; padding-left:18px; font-size:14px; line-height:1.8; color:rgba(255,255,255,0.72);">
+          <li><strong style="color:#fff;">Mode « spot secret »</strong> : masque le site pour garder tes coins rien qu'à toi.</li>
+          <li>Partage aussi tes <strong style="color:#fff;">badges, ton niveau, ton objectif de l'année</strong> et tes scores de jeux.</li>
+        </ul>
+      </div>
+
+      <!-- QR palanquée -->
+      <div class="reveal" style="background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); border-radius:22px; padding:30px; backdrop-filter:blur(10px);">
+        <div style="font-size:30px; margin-bottom:10px;">🤝</div>
+        <h3 style="margin:0 0 10px; font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:22px; color:#fff;">QR palanquée</h3>
+        <p style="margin:0; font-size:15px; line-height:1.65; color:rgba(255,255,255,0.78);">De retour au bateau, montre ton QR code : ton binôme le scanne et retrouve la plongée pré-remplie dans son app. Site, profondeur, durée — personne ne ressaisit rien.</p>
+      </div>
+    </div>
+
+    <!-- aussi dans les dernières versions -->
+    <div class="reveal" style="display:flex; flex-wrap:wrap; gap:14px; justify-content:center; max-width:980px; margin:24px auto 0;">
+      <span style="display:inline-flex; align-items:center; gap:9px; background:rgba(255,255,255,0.10); border:1px solid rgba(255,255,255,0.22); border-radius:999px; padding:11px 18px; font-size:14px; color:rgba(255,255,255,0.85);">🧳 <strong style="color:#fff;">Voyages</strong> — regroupe tes plongées par séjour</span>
+      <span style="display:inline-flex; align-items:center; gap:9px; background:rgba(255,255,255,0.10); border:1px solid rgba(255,255,255,0.22); border-radius:999px; padding:11px 18px; font-size:14px; color:rgba(255,255,255,0.85);">✍️ <strong style="color:#fff;">Signature du moniteur</strong> — au doigt, sur l'écran</span>
+      <span style="display:inline-flex; align-items:center; gap:9px; background:rgba(255,255,255,0.10); border:1px solid rgba(255,255,255,0.22); border-radius:999px; padding:11px 18px; font-size:14px; color:rgba(255,255,255,0.85);">📡 <strong style="color:#fff;">Import Bluetooth Shearwater</strong> — fiabilisé</span>
+    </div>
+  </div>
+
   <!-- DESCENT TIMELINE -->
   <div id="paliers" class="pad-side" style="position:relative; padding:20px 70px 80px 90px;">
     <div class="reveal" style="text-align:center; margin:0 auto 50px;">
@@ -270,7 +306,7 @@
         <div class="palier-card" style="background:rgba(255,255,255,0.09); border:1px solid rgba(255,255,255,0.16); border-radius:22px; padding:26px; backdrop-filter:blur(10px); text-align:right;">
           <div style="font-size:30px; margin-bottom:10px;">📡</div>
           <h3 style="margin:0 0 8px; font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:21px; color:#fff;">Import ordinateur en Bluetooth</h3>
-          <p style="margin:0; font-size:14px; line-height:1.6; color:rgba(255,255,255,0.7);">Connecte ton ordinateur de plongée et récupère tes profils de profondeur sans rien ressaisir.</p>
+          <p style="margin:0; font-size:14px; line-height:1.6; color:rgba(255,255,255,0.7);">Connecte ton ordinateur de plongée et récupère tes profils de profondeur sans rien ressaisir. Connexion Shearwater fiabilisée.</p>
         </div>
         <div class="palier-dot" style="display:flex; flex-direction:column; align-items:center;">
           <div style="width:18px; height:18px; border-radius:50%; background:#60A5FA; box-shadow:0 0 0 6px rgba(96,165,250,0.22);"></div>
